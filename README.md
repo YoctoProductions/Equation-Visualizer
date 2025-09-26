@@ -1,5 +1,5 @@
 # Equation Visualizer
-This website uses equations to create colorful "graphs" that visualize coordinates' outputs using those colors (this IS NOT a traditional graph, just a cool thing to visualize interesting equations)
+This website uses math equations to create colorful "graphs" that visualize coordinates' outputs using those colors (this IS NOT a traditional graph, just a cool thing to visualize interesting equations)
 
 All you need to do is type an equation or use the random equation button and it'll automatically be visualized, you can also use the resolution and sensitivity sliders to alter the output:
 
