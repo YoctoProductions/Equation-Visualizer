@@ -29,9 +29,11 @@ function indexToXY(i, j, res) {
 
 function compileExpression(src) {
     try {
-    const f = new Function('x', 'y', 'with(Math){return (' + src + ')}');
-    f(0, 0);
-    return { fn: f };
+        const powerSafe = src.replace(/(\w+|\([^()]+\))\s*\^\s*(\w+|\([^()]+\))/g, 'Math.pow($1,$2)');
+
+        const f = new Function('x', 'y', 'with(Math){return (' + powerSafe + ')}');
+        f(0, 0); // test c
+        return { fn: f };
     } catch (e) {
     return { error: e.message };
     }
@@ -262,7 +264,8 @@ function insertFunc(fnName) {
 function randomEquation() {
     const vars = ["x", "y"];
     const funcs = ["sin", "cos", "tan", "abs", "sqrt", "log", "exp"];
-    const ops = ["+", "-", "*", "/"];
+    const ops = ["+", "-", "*", "/", "^"];
+    const logicalOps = ["<", ">"];
 
     function rand(a) { return a[Math.floor(Math.random() * a.length)]; }
     function randNum() {
@@ -271,16 +274,18 @@ function randomEquation() {
     }
 
     function makeExpr(d = 0) {
-    if (d > 2 && Math.random() < 0.5) return rand(vars);
-    if (Math.random() < 0.25) return rand(vars);
-    if (Math.random() < 0.25) return randNum();
-    if (Math.random() < 0.5) {
-        const l = makeExpr(d + 1), r = makeExpr(d + 1);
-        return `(${l} ${rand(ops)} ${r})`;
-    } else {
-        const inner = makeExpr(d + 1), fn = rand(funcs);
-        return `${fn}(${inner})`;
-    }
+        if (d > 3 && Math.random() < 0.5) return rand(vars);
+        if (Math.random() < 0.2) return rand(vars);
+        if (Math.random() < 0.2) return randNum();
+
+        if (Math.random() < 0.4) {
+            const l = makeExpr(d + 1), r = makeExpr(d + 1);
+            if (Math.random() < 0.2) return `(${l} ${rand(logicalOps)} ${r})`;
+            return `(${l} ${rand(ops)} ${r})`;
+        } else {
+            const inner = makeExpr(d + 1), fn = rand(funcs);
+            return `${fn}(${inner})`;
+        }
     }
 
     let eq = "";
