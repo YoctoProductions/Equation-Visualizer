@@ -1,0 +1,122 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  background: #000;
+  color: #ddd;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 14px;
+}
+
+.app {
+  display: flex;
+  height: 100vh;
+}
+
+.controls {
+  width: 260px;
+  background: #000;
+  padding: 12px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+
+.title {
+  font-weight: bold;
+  font-size: 25px;
+  margin-bottom: 12px;
+}
+
+.section {
+  margin-bottom: 16px;
+}
+
+.section header {
+  font-weight: bold;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+label {
+  display: block;
+  margin: 4px 0;
+}
+
+textarea,
+input,
+select,
+button {
+  background: #111;
+  border: 1px solid #333;
+  color: #ddd;
+  font-family: inherit;
+  font-size: 13px;
+  padding: 4px 6px;
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+  margin: 2px 2px 0 0;
+  border-radius: 0;
+}
+
+button:hover {
+  background: #222;
+}
+
+input[type=range] {
+  width: 100%;
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: black;
+}
+
+.overlay {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+.coordBox {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #bbb;
+}
+
+table {
+  width: 100%;
+  font-size: 11px;
+  border-collapse: collapse;
+  margin-top: 6px;
+}
+
+td, th {
+  border: 1px solid #333;
+  padding: 4px;
+  text-align: left;
+}
+
+th {
+  background: #111;
+}
+
+p {
+  font-size: 12px;
+  color: #bbb;
+  margin-top: 4px;
+}

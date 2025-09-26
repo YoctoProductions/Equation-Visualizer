@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Equation Visualizer</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.ico">
+  
+</head>
+<body>
+  <div class="app">
+    <aside class="controls">
+      <div class="title">Equation Visualizer</div>
+
+      <div class="section">
+        <header>Equation Builder</header>
+        <div id="builder">
+          <textarea id="expr">x*y/100</textarea>
+          <div class="btn-row">
+            <button class="btn" onclick="insert('x')">x</button>
+            <button class="btn" onclick="insert('y')">y</button>
+            <button class="btn" onclick="insert('+')">+</button>
+            <button class="btn" onclick="insert('-')">-</button>
+            <button class="btn" onclick="insert('*')">*</button>
+            <button class="btn" onclick="insert('/')">/</button>
+            <button class="btn" onclick="insert('(')">(</button>
+            <button class="btn" onclick="insert(')')">)</button>
+            <button class="btn" onclick="insertFunc('sin')">sin</button>
+            <button class="btn" onclick="insertFunc('cos')">cos</button>
+            <button class="btn" onclick="insertFunc('tan')">tan</button>
+            <button class="btn" onclick="insertFunc('sqrt')">√</button>
+            <button class="btn" onclick="insertFunc('abs')">abs</button>
+            <button class="btn" onclick="insertFunc('log')">log</button>
+          </div>
+          <div class="btn-row">
+            <button class="btn" id="randomBtn" style="background:#444">Random Equation</button>
+          </div>
+        </div>
+
+        <div id="exprStatus" style="color:#f99;font-size:12px;margin-top:4px"></div>
+        <div class="coordBox" id="coordBox">Hover: (x, y) = ---, f = ---</div>
+      </div>
+
+      <div class="section">
+        <header>Resolution</header>
+        <label>Cells per axis: <span id="resVal">200</span></label>
+        <input id="resRange" type="range" min="40" max="2000" value="200" />
+        <button class="btn" onclick="resetResolution()">Reset to Default</button>
+        <p>Makes image higher quality, may lag above 1000 CPA</p>
+      </div>
+
+      <div class="section">
+        <header>Sensitivity</header>
+        <label>Sensitivity: <span id="sensVal">0.02</span></label>
+        <input id="sensRange" type="range" min="0.001" max="0.2" step="0.001" value="0.02" />
+        <p>Changes the threshold of how much colors can scale</p>
+        <button class="btn" onclick="resetSensitivity()">Reset to Default</button>
+      </div>
+
+      <div class="section">
+        <header>Random Equation History</header>
+        <table id="historyTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Equation</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <details open class="section">
+        <summary>Graphing Color Modes</summary>
+        <label><input type="radio" name="graphColorMode" value="hue" checked> Hue/Brightness</label>
+        <label><input type="radio" name="graphColorMode" value="hueonly"> Hue Only</label>
+        <label><input type="radio" name="graphColorMode" value="gray"> Grayscale</label>
+        <label><input type="radio" name="graphColorMode" value="heat"> Red-Blue Heatmap</label>
+        <label><input type="radio" name="graphColorMode" value="custom"> Custom Gradient</label>
+        <div id="customColors" style="display:none; margin-top:6px">
+          <label>Color 1 <input type="color" id="color1" value="#00ff00"></label>
+          <label>Color 2 <input type="color" id="color2" value="#ff00ff"></label>
+        </div>
+      </details>
+
+      <details class="section">
+        <summary style="color: yellow;">Stylistic Color Modes</summary>
+        <p>Note: these will override the graphing color, select none to switch back to graphing color mode</p>
+        <label><input type="radio" name="styleColorMode" value=""> None</label>
+        <label><input type="radio" name="styleColorMode" value="rainbow"> Rainbow</label>
+        <label><input type="radio" name="styleColorMode" value="plasma"> Plasma</label>
+        <label><input type="radio" name="styleColorMode" value="neon"> Neon Glow</label>
+        <label><input type="radio" name="styleColorMode" value="pastel"> Pastel</label>
+        <label><input type="radio" name="styleColorMode" value="monochrome"> Monochrome Accent</label>
+        <label><input type="radio" name="styleColorMode" value="fire"> Fire</label>
+        <label><input type="radio" name="styleColorMode" value="ocean"> Ocean</label>
+        <label><input type="radio" name="styleColorMode" value="forest"> Forest</label>
+        <label><input type="radio" name="styleColorMode" value="candy"> Candy</label>
+        <label><input type="radio" name="styleColorMode" value="aurora"> Aurora</label>
+        <label><input type="radio" name="styleColorMode" value="sunset"> Sunset</label>
+        <label><input type="radio" name="styleColorMode" value="cyberpunk"> Cyberpunk</label>
+        <div id="randomStyleControls" style="display:none; margin-top:6px">
+          <button id="genRandomStyle">Generate New Style</button>
+          <label>Colors: <input type="number" id="styleColorCount" min="2" max="6" value="3"></label>
+          <label><input type="checkbox" id="styleBoost"> Boost Brightness</label>
+          <label><input type="checkbox" id="styleNanFix"> Force NaN Spread</label>
+        </div>
+      </details>
+
+      <div class="section">
+        <header>Export</header>
+        <button class="btn" onclick="downloadImage('png')">Download PNG</button>
+        <button class="btn" onclick="downloadImage('jpg')">Download JPG</button>
+      </div>
+    </aside>
+
+    <main style="flex:1; position:relative">
+      <canvas id="c"></canvas>
+      <div class="overlay">Status: <span id="stat">ready</span></div>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
